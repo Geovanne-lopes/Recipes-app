@@ -1,4 +1,4 @@
-package br.com.fiap.recipes.screens
+package br.com.fiap.testname.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
@@ -25,11 +25,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.com.fiap.recipes.R
-import br.com.fiap.recipes.ui.theme.RecipesTheme
+import androidx.navigation.NavController
+import br.com.fiap.testname.R
+import br.com.fiap.testname.navigation.Destination
+import br.com.fiap.testname.ui.theme.TestNameTheme
 
 @Composable
-fun InitialScreen() {
+fun InitialScreen(navController: NavController?) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -73,7 +75,11 @@ fun InitialScreen() {
 
                 Row {
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navController?.navigate(
+                                    Destination.LoginScreen.route
+                                )
+                        },
                         colors = ButtonDefaults
                             .buttonColors(
                                 containerColor = MaterialTheme.colorScheme.primary
@@ -94,7 +100,11 @@ fun InitialScreen() {
 
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navController?.navigate(
+                                    Destination.SignupScreen.route
+                                )
+                        },
                         colors = ButtonDefaults
                             .buttonColors(
                                 containerColor = MaterialTheme.colorScheme.tertiary
@@ -130,8 +140,8 @@ fun InitialScreen() {
     showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO)
 fun InitialScreenPreview() {
-    RecipesTheme{
-        InitialScreen()
+    TestNameTheme{
+        InitialScreen(null)
     }
 }
 

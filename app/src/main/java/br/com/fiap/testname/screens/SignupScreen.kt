@@ -1,4 +1,4 @@
-package br.com.fiap.recipes.screens
+package br.com.fiap.testname.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -26,6 +26,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -33,11 +37,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.com.fiap.recipes.R
-import br.com.fiap.recipes.ui.theme.RecipesTheme
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import br.com.fiap.testname.R
+import br.com.fiap.testname.ui.theme.TestNameTheme
 
 @Composable
-fun SignupScreen(modifier: Modifier = Modifier) {
+fun SignupScreen(navController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -70,8 +76,8 @@ fun SignupScreen(modifier: Modifier = Modifier) {
 )
 @Composable
 private fun SignupScreenPreview() {
-    RecipesTheme() {
-        SignupScreen()
+    TestNameTheme() {
+        SignupScreen(rememberNavController())
     }
 }
 @Composable
@@ -126,7 +132,7 @@ fun UserImage(modifier: Modifier = Modifier) {
 )
 @Composable
 private fun TitleComponentPreview() {
-    RecipesTheme {
+    TestNameTheme {
         TitleComponent()
     }
 }
@@ -137,13 +143,26 @@ private fun TitleComponentPreview() {
 )
 @Composable
 private fun UserImagePreview() {
-    RecipesTheme() {
+    TestNameTheme() {
         UserImage()
     }
 }
 
 @Composable
 fun SignupUserForm(modifier: Modifier = Modifier) {
+
+    var name by remember {
+        mutableStateOf("")
+    }
+
+    var email by remember {
+        mutableStateOf("")
+    }
+
+    var password by remember {
+        mutableStateOf("")
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -151,8 +170,10 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
     ) {
         // Caixa de Texto para nome do usuário
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = name,
+            onValueChange = { nameValue ->
+                name = nameValue
+            },
             modifier = Modifier
                 .fillMaxWidth(),
             label = {
@@ -178,8 +199,10 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
 
         //Caixa de texto para o email do usuário
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = email,
+            onValueChange = { emailValue ->
+                email = emailValue
+            },
             modifier = Modifier
                 .fillMaxWidth(),
             label = {
@@ -205,8 +228,10 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
 
         //Caixa de texto para a senha do usuário
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = password,
+            onValueChange = { passwordValue ->
+                password = passwordValue
+            },
             modifier = Modifier
                 .fillMaxWidth(),
             label = {
@@ -259,7 +284,7 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun SignupUserFormPreview() {
-    RecipesTheme() {
+    TestNameTheme() {
         SignupUserForm()
     }
 }

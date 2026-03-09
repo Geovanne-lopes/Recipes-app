@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "br.com.fiap.recipes"
+    namespace = "br.com.fiap.testname"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "br.com.fiap.recipes"
+        applicationId = "br.com.fiap.testname"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
@@ -58,4 +58,7 @@ dependencies {
 
     // Mais ícones
     implementation("androidx.compose.material:material-icons-extended-android:1.7.8")
+
+    // Navigation compose dependencies
+    implementation(libs.androidx.navigation.compose)
 }

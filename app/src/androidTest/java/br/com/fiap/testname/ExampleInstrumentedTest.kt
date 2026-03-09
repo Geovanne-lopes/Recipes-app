@@ -1,4 +1,4 @@
-package br.com.fiap.recipes
+package br.com.fiap.testname
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("br.com.fiap.recipes", appContext.packageName)
+        assertEquals("br.com.fiap.testname", appContext.packageName)
     }
 }

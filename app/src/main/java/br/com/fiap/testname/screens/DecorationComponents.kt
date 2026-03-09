@@ -1,4 +1,4 @@
-package br.com.fiap.recipes.screens
+package br.com.fiap.testname.screens
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.com.fiap.recipes.ui.theme.RecipesTheme
+import br.com.fiap.testname.ui.theme.TestNameTheme
 
 @Composable
 fun TopEndCard(modifier: Modifier = Modifier) {
@@ -31,7 +31,7 @@ fun TopEndCard(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun TopEndCardPreview() {
-    RecipesTheme() {
+    TestNameTheme() {
         TopEndCard()
     }
 }
@@ -55,7 +55,7 @@ fun BottomStartCard(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun BottomStartCardPreview() {
-    RecipesTheme() {
+    TestNameTheme() {
         BottomStartCard()
     }
 }

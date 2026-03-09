@@ -1,4 +1,4 @@
-package br.com.fiap.recipes.ui.theme
+package br.com.fiap.testname.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

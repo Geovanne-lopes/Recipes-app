@@ -1,4 +1,4 @@
-package br.com.fiap.recipes.screens
+package br.com.fiap.testname.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -25,6 +25,10 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,11 +37,15 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.com.fiap.recipes.R
-import br.com.fiap.recipes.ui.theme.RecipesTheme
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import br.com.fiap.testname.R
+import br.com.fiap.testname.navigation.Destination
+import br.com.fiap.testname.ui.theme.TestNameTheme
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(navController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -54,7 +62,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             LoginTitle()
-            LoginForm()
+            LoginForm(navController)
         }
 
     }
@@ -67,8 +75,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 )
 @Composable
 private fun LoginScreenPreview() {
-    RecipesTheme {
-        LoginScreen()
+    TestNameTheme {
+        LoginScreen(rememberNavController())
     }
 }
 
@@ -102,14 +110,23 @@ fun LoginTitle(modifier: Modifier = Modifier) {
 )
 @Composable
 private fun LoginTitlePreview() {
-    RecipesTheme {
+    TestNameTheme {
         LoginTitle()
     }
 }
 
 // *** Componente 2 - Formulário de Login do Usuário
 @Composable
-fun LoginForm(modifier: Modifier = Modifier) {
+fun LoginForm(navController: NavController) {
+
+    var email by remember {
+        mutableStateOf("")
+    }
+
+    var password by remember {
+        mutableStateOf("")
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,8 +134,10 @@ fun LoginForm(modifier: Modifier = Modifier) {
     ) {
         // Caixa de texto your e-mail
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = email,
+            onValueChange = { emailValue ->
+                email = emailValue
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 4.dp),
@@ -148,8 +167,10 @@ fun LoginForm(modifier: Modifier = Modifier) {
         )
         // Caixa de texto your password
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = password,
+            onValueChange = { passwordValue ->
+                password = passwordValue
+            },
             modifier = Modifier
                 .fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
@@ -186,7 +207,12 @@ fun LoginForm(modifier: Modifier = Modifier) {
         // Botão Sign in
         Spacer(modifier = Modifier.height(32.dp))
         Button(
-            onClick = {},
+            onClick = {
+                navController
+                    .navigate(
+                        Destination.HomeScreen.createRoute(email)
+                    )
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -209,7 +235,12 @@ fun LoginForm(modifier: Modifier = Modifier) {
                 color = MaterialTheme.colorScheme.primary
             )
             TextButton(
-                onClick = {}
+                onClick = {
+                    navController
+                        .navigate(
+                            Destination.SignupScreen.route
+                        )
+                }
             ) {
                 Text(
                     text = stringResource(R.string.sign_up),
@@ -228,7 +259,7 @@ fun LoginForm(modifier: Modifier = Modifier) {
 )
 @Composable
 private fun LoginFormPreview() {
-    RecipesTheme {
-        LoginForm()
+    TestNameTheme {
+        LoginForm(rememberNavController())
     }
 }

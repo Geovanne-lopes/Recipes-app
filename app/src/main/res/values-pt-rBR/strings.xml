@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Receitas</string>
+    <string name="app_name">Testname</string>
     <string name="app_title">Vamos Cozinhar</string>
     <string name="unlimited_recipes">RECEITAS PREMIUM ILIMITADAS</string>
     <string name="button_login">Entrar</string>
@@ -21,4 +21,14 @@
     <string name="your_e_mail">Your e-mail</string>
     <string name="sign_in">Sign in</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="hello_jo_o">Hello, João!</string>
+    <string name="lucas_email_com">lucas@email.com</string>
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
+    <string name="add_button">Add button</string>
+    <string name="search_by_recipes">search by recipes</string>
+    <string name="man_cooking">man cooking</string>
+    <string name="categories">Categories</string>
+    <string name="newly_added_recipes">Newly added recipes</string>
 </resources>

@@ -1,6 +1,5 @@
-package br.com.fiap.recipes.ui.theme
+package br.com.fiap.testname.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -38,7 +37,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun RecipesTheme(
+fun TestNameTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,

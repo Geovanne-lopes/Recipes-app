@@ -1,4 +1,4 @@
-package br.com.fiap.recipes
+package br.com.fiap.testname
 
 import org.junit.Test
 
