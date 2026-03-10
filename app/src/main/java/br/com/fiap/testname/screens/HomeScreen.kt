@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -45,13 +49,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import br.com.fiap.recipes.components.RecipeItem
+import br.com.fiap.testname.repository.getAllRecipes
 import br.com.fiap.testname.R
+import br.com.fiap.testname.components.CategoryItem
+import br.com.fiap.testname.navigation.Destination
+import br.com.fiap.testname.repository.getAllCategories
 import br.com.fiap.testname.ui.theme.TestNameTheme
 
 @Composable
-fun HomeScreen(navController: NavHostController, email: String?) {
+fun HomeScreen(email: String?, navController: NavHostController) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
             topBar = {
@@ -74,7 +84,9 @@ fun HomeScreen(navController: NavHostController, email: String?) {
                 }
             }
         ) { paddingValues ->
-            ContentScreen(modifier = Modifier.padding(paddingValues))
+            ContentScreen(
+                modifier = Modifier.padding(paddingValues),
+                navController = navController)
         }
     }
 }
@@ -87,7 +99,7 @@ fun HomeScreen(navController: NavHostController, email: String?) {
 @Composable
 private fun HomeScreenPreview() {
     TestNameTheme {
-        HomeScreen(rememberNavController(), "")
+        HomeScreen("", rememberNavController())
     }
 }
 
@@ -204,18 +216,26 @@ private fun MyBottomAppBarPreview() {
 }
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier) {
+fun ContentScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
+
+    //variável que vai armazenar a lista de categorias
+    val categories = getAllCategories()
+
+    val recipes = getAllRecipes()
+
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp)
     ) {
         OutlinedTextField(
             value = "",
             onValueChange = {},
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 8.dp),
+                .padding(vertical = 8.dp, horizontal = 16.dp),
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults
                 .colors(
@@ -241,7 +261,7 @@ fun ContentScreen(modifier: Modifier = Modifier) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(vertical = 4.dp, horizontal = 16.dp)
                 .height(112.dp)
         ) {
             Image(
@@ -251,16 +271,51 @@ fun ContentScreen(modifier: Modifier = Modifier) {
             )
         }
         Text(
+            modifier = Modifier
+                .padding(vertical = 4.dp, horizontal = 16.dp),
             text = stringResource(R.string.categories),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.height(132.dp))
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        ) {
+            items(categories) { category ->
+                CategoryItem(
+                    category = category,
+                    onClick = {
+                    navController.navigate(
+                        route = Destination
+                            .CategoryRecipeScreen
+                            .createRoute(id = category.id)
+                    )
+                })
+            }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
+            modifier = Modifier
+                .padding(vertical = 4.dp, horizontal = 16.dp),
             text = stringResource(R.string.newly_added_recipes),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.primary
         )
+        LazyColumn(
+            contentPadding = PaddingValues(
+                vertical = 8.dp,
+                horizontal = 16.dp,
+            ),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(recipes) { recipe ->
+                RecipeItem(recipe)
+            }
+        }
     }
 }
 
@@ -273,6 +328,6 @@ fun ContentScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun ContentScreenPreview() {
     TestNameTheme {
-        ContentScreen()
+        ContentScreen(navController = rememberNavController())
     }
 }
